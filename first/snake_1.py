@@ -14,6 +14,15 @@ print(size)
 
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Змейка")
+
+def draw_block(color, row, column):
+    pygame.draw.rect(screen, color,
+                     [SIZE_BLOCK + column * SIZE_BLOCK + MARGIN * (column + 1),
+                      HEADER_MARGIN + SIZE_BLOCK + row * SIZE_BLOCK + MARGIN * (row + 1),
+                      SIZE_BLOCK, SIZE_BLOCK])
+
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -29,9 +38,8 @@ while True:
                 color = BLUE
             else:
                 color = WHITE
-            pygame.draw.rect(screen, color,
-                             [SIZE_BLOCK + column * SIZE_BLOCK + MARGIN * (column + 1),
-                              HEADER_MARGIN + SIZE_BLOCK + row * SIZE_BLOCK + MARGIN * (row + 1),
-                              SIZE_BLOCK, SIZE_BLOCK])
+
+
+            draw_block(color,row, column)
 
     pygame.display.flip()
