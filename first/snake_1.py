@@ -8,6 +8,7 @@ HEADER_COLOR = (0, 204, 153)
 COUNT_BLOCKS = 20
 MARGIN = 1
 HEADER_MARGIN = 70
+SNAKE_COLOR = (0, 102, 0)
 size = [SIZE_BLOCK * COUNT_BLOCKS + 2 * SIZE_BLOCK + MARGIN * COUNT_BLOCKS,
         SIZE_BLOCK * COUNT_BLOCKS + 2 * SIZE_BLOCK + MARGIN * COUNT_BLOCKS + HEADER_MARGIN]
 print(size)
@@ -41,5 +42,7 @@ while True:
 
 
             draw_block(color,row, column)
+
+    draw_block(SNAKE_COLOR, 0, 0)
 
     pygame.display.flip()
