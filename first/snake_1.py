@@ -6,6 +6,7 @@ WHITE = (255, 255, 255)
 BLUE = (204,255,255)
 size = [400, 600]
 COUNT_BLOKS = 20
+MARGIN = 1
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Змейка")
 while True:
@@ -18,10 +19,10 @@ while True:
 
     for column in range(COUNT_BLOKS):
         if column%2 == 0:
-            color == BLUE
+            color = BLUE
         else:
-            color == WHITE
-        pygame.draw.rect(screen, color, [10 + column*SIZE_BLOCK, 20, SIZE_BLOCK, SIZE_BLOCK])
+            color = WHITE
+        pygame.draw.rect(screen, color, [10 + column*SIZE_BLOCK + MARGIN*(column+1), 20, SIZE_BLOCK, SIZE_BLOCK])
 
 
     pygame.display.flip()
