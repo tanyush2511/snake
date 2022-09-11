@@ -1,5 +1,5 @@
 import pygame
-
+FRAME_COLOR = (0,255,204)
 
 size = [400,600]
 screen = pygame.display.set_mode(size)
@@ -9,3 +9,6 @@ while True:
         if event.type == pygame.QUIT:
             print("exit")
             pygame.quit()
+
+    screen.fill(FRAME_COLOR)
+    pygame.display.flip()
