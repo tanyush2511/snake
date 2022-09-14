@@ -15,6 +15,7 @@ print(size)
 
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Змейка")
+timer = pygame.time.Clock()
 
 
 class SnakeBlock:
@@ -30,13 +31,26 @@ def draw_block(color, row, column):
                       SIZE_BLOCK, SIZE_BLOCK])
 
 
-snake_block = [SnakeBlock(9, 9)]
+snake_block = [SnakeBlock(9, 9), SnakeBlock(9, 10)]
+
+d_row = 0
+d_col = 1
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             print("exit")
             pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP and d_col != 0:
+                d_row = -1
+                d_col = 0
+            elif event.key == pygame.K_LEFT and d_row != 0:
+                d_row = 0
+                d_col = -1
+            elif event.key == pygame.K_RIGHT and d_row != 0:
+                d_row = 0
+                d_col = 1
 
     screen.fill(FRAME_COLOR)
     pygame.draw.rect(screen, HEADER_COLOR, [0, 0, size[0], HEADER_MARGIN])
@@ -52,5 +66,8 @@ while True:
 
     for block in snake_block:
         draw_block(SNAKE_COLOR, block.x, block.y)
+        block.x += d_row
+        block.y += d_col
 
     pygame.display.flip()
+    timer.tick(2)
