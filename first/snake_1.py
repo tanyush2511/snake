@@ -57,6 +57,7 @@ apple = get_random_empty_block()
 d_row = 0
 d_col = 1
 total = 0
+speed = 1
 
 while True:
     for event in pygame.event.get():
@@ -81,8 +82,10 @@ while True:
     screen.fill(FRAME_COLOR)
     pygame.draw.rect(screen, HEADER_COLOR, [0, 0, size[0], HEADER_MARGIN])
 
-    text_total = courier.render(f"Total:{total}, 0, WHITE")
+    text_total = courier.render(f"Total:{total}", 0, WHITE)
+    text_speed = courier.render(f"Speed:{speed}", 0, WHITE)
     screen.blit(text_total, (SIZE_BLOCK, SIZE_BLOCK))
+    screen.blit(text_speed, (SIZE_BLOCK + 230, SIZE_BLOCK))
 
     for row in range(COUNT_BLOCKS):
         for column in range(COUNT_BLOCKS):
@@ -104,6 +107,7 @@ while True:
 
     if apple == head:
         total += 1
+        speed = total // 5 + 1
         snake_blocks.append(apple)
         apple = get_random_empty_block()
 
@@ -112,4 +116,4 @@ while True:
     snake_blocks.pop(0)
 
     pygame.display.flip()
-    timer.tick(2)
+    timer.tick(3 + speed)
