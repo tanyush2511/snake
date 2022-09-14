@@ -1,11 +1,12 @@
 import pygame
 import  sys
-
+import  random
 
 SIZE_BLOCK = 20
 FRAME_COLOR = (0, 255, 204)
 WHITE = (255, 255, 255)
 BLUE = (204, 255, 255)
+RED = (224,0,0)
 HEADER_COLOR = (0, 204, 153)
 COUNT_BLOCKS = 20
 MARGIN = 1
@@ -26,7 +27,19 @@ class SnakeBlock:
         self.y = y
 
     def is_inside(self):
-        return 0<= self.x< SIZE_BLOCK and 0<= self.y< SIZE_BLOCK
+        return 0<= self.x< COUNT_BLOCKS and 0<= self.y< COUNT_BLOCKS
+
+    def __eq__(self, other):
+        return isinstance(other, SnakeBlock) and self.x == other.x and self.y == other.y
+
+def get_random_empty_block():
+    x = random.randint(0, COUNT_BLOCKS-1)
+    y = random.randint(0, COUNT_BLOCKS-1)
+    empty_block = SnakeBlock(x, y)
+    while empty_block in snake_blocks:
+        empty_block.x = random. randint(0, COUNT_BLOCKS - 1)
+        empty_block.y = random.randint(0, COUNT_BLOCKS - 1)
+    return empty_block
 
 def draw_block(color, row, column):
     pygame.draw.rect(screen, color, [SIZE_BLOCK + column * SIZE_BLOCK + MARGIN * (column + 1),
@@ -36,7 +49,7 @@ def draw_block(color, row, column):
 
 
 snake_blocks = [SnakeBlock(9, 8), SnakeBlock(9, 9), SnakeBlock(9, 10)]
-
+apple = get_random_empty_block()
 d_row = 0
 d_col = 1
 
@@ -77,13 +90,16 @@ while True:
         pygame.quit()
         sys.exit()
 
-    for block in snake_blocks: #здесь происходит отрисовка головы
+    draw_block(RED, apple.x, apple.y)
+    for block in snake_blocks:
         draw_block(SNAKE_COLOR, block.x, block.y)
 
+    if apple == head:
+        apple = get_random_empty_block()
 
-        new_head = SnakeBlock(head.x + d_row, head.y + d_col)
-        snake_blocks.append(new_head)
-        snake_blocks.pop(0)
+    new_head = SnakeBlock(head.x + d_row, head.y + d_col)
+    snake_blocks.append(new_head)
+    snake_blocks.pop(0)
 
     pygame.display.flip()
     timer.tick(2)
