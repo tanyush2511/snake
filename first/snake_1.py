@@ -106,8 +106,9 @@ def start_the_game():
         head = snake_blocks[-1]
         if not head.is_inside():
             print("crash")
-            pygame.quit()
-            sys.exit()
+            # pygame.quit()
+            # sys.exit()
+            break
 
         draw_block(RED, apple.x, apple.y)
         for block in snake_blocks:
@@ -127,8 +128,9 @@ def start_the_game():
 
         if new_head in snake_blocks:
             print("crash yourself")
-            pygame.quit()
-            sys.exit()
+            # pygame.quit()
+            # sys.exit()
+            break
 
         snake_blocks.append(new_head)
         snake_blocks.pop(0)
